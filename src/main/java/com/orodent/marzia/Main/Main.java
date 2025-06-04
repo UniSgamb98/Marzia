@@ -1,0 +1,50 @@
+package com.orodent.marzia.Main;
+
+import com.orodent.marzia.App;
+import com.orodent.marzia.controller.IOController;
+import com.orodent.marzia.view.ListItem;
+import com.orodent.marzia.view.View;
+import javafx.application.Application;
+import javafx.collections.ListChangeListener;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.*;
+import java.util.*;
+
+public class Main extends Application {
+    @Override
+    public void start(Stage stage) {
+        // Apro la socket
+        IOController ioController;
+        try {
+            ioController = new IOController();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+/*
+        App.measurement.addListener((ListChangeListener<ListItem>) change -> {
+            while (change.next()){
+                if (change.wasAdded()) {
+
+                }
+
+                if (change.wasRemoved()) {
+
+                }
+            }
+        });*/
+
+
+        View view = new View(ioController);
+        Scene scene = new Scene(view, 320, 240);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/style.css")).toExternalForm());
+        stage.setTitle("Orodent magic");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}

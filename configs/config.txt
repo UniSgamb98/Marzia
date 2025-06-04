@@ -1,0 +1,43 @@
+#MISURE
+- 10
+- 12
+- 14
+- 16
+- 18
+- 20
+- 22
+- 25
+
+#TIPOLOGIE
+- Thor
+- Eos
+- Venus
+- Preshaded
+- Bleach
+- High Translucent
+- White Matt
+- Gold
+
+// L'indirizzo della cartella che ospita il Database
+#database home
+- I:/CliZr/Tommaso
+
+#COLORI
+- a1
+- a2
+- a3
+- a35
+- a4
+- b1
+- b2
+- b3
+- b4
+- c1
+- c2
+- c3
+- d2
+- d3
+
+#DIAMETRI
+- 98
+- 95

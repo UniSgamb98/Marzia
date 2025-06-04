@@ -1,0 +1,36 @@
+.custom-view {
+    -fx-background-color: #f0f0f0;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.hbox {
+    -fx-spacing: 10;
+}
+
+.choice-box {
+    -fx-pref-width: 150;
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.bottom-button {
+    -fx-font-size: 16px;
+    -fx-padding: 12 40;
+    -fx-background-color: #2196F3;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+}
+
+.bottom-button:hover {
+    -fx-background-color: #1976D2;
+}
