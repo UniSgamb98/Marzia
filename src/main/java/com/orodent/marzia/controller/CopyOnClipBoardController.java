@@ -12,13 +12,18 @@ public class CopyOnClipBoardController implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
-        App.textToClipboard = "";
 
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
         for (ListItem i : App.measurement){
-            App.textToClipboard += "\n" + i.getText();
+            if (!first) {
+                sb.append("\n");
+            }
+            sb.append(i.getText());
+            first = false;
         }
 
-        content.putString(App.textToClipboard);
+        content.putString(sb.toString());
         clipboard.setContent(content);
     }
 }

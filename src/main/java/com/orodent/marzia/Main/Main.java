@@ -36,9 +36,11 @@ public class Main extends Application {
         });*/
 
 
+        ioController.write("T1");
         View view = new View(ioController);
-        Scene scene = new Scene(view, 320, 240);
+        Scene scene = new Scene(view, 520, 300);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/style.css")).toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/listItem.css")).toExternalForm());
         stage.setTitle("Orodent magic");
         stage.setScene(scene);
         stage.show();

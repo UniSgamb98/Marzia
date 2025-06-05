@@ -46,7 +46,7 @@ public class View extends BorderPane {
 
         // ListView a destra
         ListView<ListItem> listView = new ListView<>(App.measurement);
-        listView.setPrefWidth(250);
+        listView.setPrefWidth(350);
         setRight(listView);
     }
 }

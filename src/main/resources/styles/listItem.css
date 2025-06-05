@@ -18,14 +18,19 @@
 }
 
 .list-item-button {
-    -fx-background-color: #e53935;
-    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-text-fill: #e53935;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-padding: 4 10;
-    -fx-background-radius: 5;
+    -fx-padding: 2 6;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: transparent;
     -fx-cursor: hand;
 }
 
 .list-item-button:hover {
-    -fx-background-color: #c62828;
+    -fx-background-color: #ffe5e5;
+    -fx-border-color: #e53935;
 }
+
