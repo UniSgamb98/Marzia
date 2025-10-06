@@ -5,6 +5,8 @@ import com.orodent.marzia.controller.CaptureMeasurementController;
 import com.orodent.marzia.controller.CopyOnClipBoardController;
 import com.orodent.marzia.controller.IOController;
 import com.orodent.marzia.controller.ResetController;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -27,6 +29,21 @@ public class View extends BorderPane {
         reset.setOnAction(new ResetController());
         setTop(reset);
 
+        // ListView a destra
+        ListView<ListItem> listView = new ListView<>(App.measurement);
+        App.measurement.addListener((ListChangeListener<ListItem>) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    Platform.runLater(() -> {
+                        listView.layout(); // forza il layout aggiornato
+                        listView.scrollTo(listView.getItems().size() - 1);
+                    });
+                }
+            }
+        });
+        listView.setPrefWidth(350);
+        setRight(listView);
+
         // Bottone centrale
         Button acquisisciButton = new Button("Acquisisci");
         acquisisciButton.setOnAction(new CaptureMeasurementController(ioController));
@@ -44,9 +61,5 @@ public class View extends BorderPane {
         bottomBox.setAlignment(Pos.CENTER);
         setBottom(bottomBox);
 
-        // ListView a destra
-        ListView<ListItem> listView = new ListView<>(App.measurement);
-        listView.setPrefWidth(350);
-        setRight(listView);
     }
 }

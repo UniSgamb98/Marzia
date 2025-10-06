@@ -6,6 +6,5 @@ import javafx.collections.ObservableList;
 
 
 public class App {
-    public static String textToClipboard = "";
     public static ObservableList<ListItem> measurement = FXCollections.observableArrayList();
 }

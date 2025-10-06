@@ -6,13 +6,11 @@ import java.net.Socket;
 public class IOController {
     private final BufferedWriter writer;
     private final KeyenceStreamReader streamReader;
-    private final Socket socket;
 
-    public IOController() throws IOException {
-        String ip = "192.168.1.150";
+    public IOController(String ip) throws IOException {
         int port = 8600;
 
-        socket = new Socket(ip, port);
+        Socket socket = new Socket(ip, port);
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
         streamReader = new KeyenceStreamReader(reader);
