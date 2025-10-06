@@ -2,10 +2,8 @@ package com.orodent.marzia.controller;
 
 import com.orodent.marzia.App;
 import com.orodent.marzia.view.ListItem;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ListView;
 
 public class CaptureMeasurementController implements EventHandler<ActionEvent> {
     IOController ioController;
