@@ -1,15 +1,16 @@
 package com.orodent.marzia.controller;
 
 import com.orodent.marzia.App;
+import com.orodent.marzia.models.AppModel;
 import com.orodent.marzia.view.ListItem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class CaptureMeasurementController implements EventHandler<ActionEvent> {
-    IOController ioController;
+    AppModel model;
 
-    public CaptureMeasurementController(IOController ioController){
-        this.ioController = ioController;
+    public CaptureMeasurementController(AppModel model){
+        this.model = model;
     }
 
     @Override
@@ -18,6 +19,7 @@ public class CaptureMeasurementController implements EventHandler<ActionEvent> {
     }
 
     public void doStuff(){
+        IOController ioController = model.getActiveController();
         String response = ioController.write("T1");
         response = response.replace(",", "\t");
         response = response.replace(".", ",");
@@ -28,6 +30,5 @@ public class CaptureMeasurementController implements EventHandler<ActionEvent> {
             ListItem.n--;
         });
         App.measurement.add(listItem);
-
     }
 }

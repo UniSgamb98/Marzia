@@ -17,6 +17,9 @@
     -fx-background-color: #4CAF50;
     -fx-text-fill: white;
     -fx-background-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
 }
 
 .button:hover {
