@@ -1,15 +1,18 @@
-package com.orodent.marzia.controller;
+package com.orodent.marzia.controller.IOcontrollers;
+
+import com.orodent.marzia.controller.KeyenceStreamReader;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class IOController {
+public class MicrometroIOcontroller extends IOController{
     private final BufferedWriter writer;
     private final KeyenceStreamReader streamReader;
     private final Socket socket;
 
-    public IOController(String ip) throws IOException {
+    public MicrometroIOcontroller(String ip) throws IOException {
+        super();
         int port = 8600;
 
         //Apertura Socket
@@ -23,18 +26,22 @@ public class IOController {
         streamReader = new KeyenceStreamReader(reader);
     }
 
-    public String write(String command){
+    @Override
+    public String getMeasurement(){
         String ret;
         try {
-            writer.write(command + "\r");
+            writer.write("T1" + "\r");
             writer.flush();
             ret = streamReader.getUltimaRiga();
+            ret = ret.replace(",", "\t");
+            ret = ret.replace(".", ",");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return ret;
     }
 
+    @Override
     public void close() {
         System.out.println("Chiusura connessione...");
         try {

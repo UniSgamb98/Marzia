@@ -1,6 +1,5 @@
 package com.orodent.marzia.view;
 
-import com.orodent.marzia.App;
 import com.orodent.marzia.controller.CaptureMeasurementController;
 import com.orodent.marzia.controller.CopyOnClipBoardController;
 import com.orodent.marzia.controller.ResetController;
@@ -30,13 +29,13 @@ public class View extends BorderPane {
         topBox.setAlignment(Pos.CENTER);
 
         Button reset = new Button("Reset");
-        reset.setOnAction(new ResetController());
+        reset.setOnAction(new ResetController(model));
         HBox top = new HBox(reset, new ConnectionBarView(model));
         setTop(top);
 
         // ListView a centro
-        ListView<ListItem> listView = new ListView<>(App.measurement);
-        App.measurement.addListener((ListChangeListener<ListItem>) change -> {
+        ListView<ListItem> listView = new ListView<>(model.measurement);
+        model.measurement.addListener((ListChangeListener<ListItem>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
                     Platform.runLater(() -> {
@@ -77,7 +76,7 @@ public class View extends BorderPane {
         Button copyButton = new Button("Copia su appunti");
         copyButton.getStyleClass().add("bottom-button");
         copyButton.setMaxWidth(Double.MAX_VALUE);
-        copyButton.setOnAction(new CopyOnClipBoardController());
+        copyButton.setOnAction(new CopyOnClipBoardController(model));
 
         VBox bottomBox = new VBox(copyButton);
         bottomBox.setPadding(new Insets(15));

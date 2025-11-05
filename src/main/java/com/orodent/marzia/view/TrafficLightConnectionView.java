@@ -1,6 +1,8 @@
 package com.orodent.marzia.view;
 
-import com.orodent.marzia.controller.IOController;
+import com.orodent.marzia.controller.IOcontrollers.BilanciaIOcontroller;
+import com.orodent.marzia.controller.IOcontrollers.IOController;
+import com.orodent.marzia.controller.IOcontrollers.MicrometroIOcontroller;
 import com.orodent.marzia.models.AppModel;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -41,7 +43,7 @@ public class TrafficLightConnectionView extends StackPane {
                     model.setMicrometerIOController(null);
                 } else {        //era spento
                     try {
-                        model.setMicrometerIOController(new IOController("192.168.1.150"));
+                        model.setMicrometerIOController(new MicrometroIOcontroller("192.168.1.150"));
                     } catch (IOException ignored) {}
                 }
             } else if (IODevice == 2) {
@@ -50,9 +52,7 @@ public class TrafficLightConnectionView extends StackPane {
                     c.close();
                     model.setBilanciaIOController(null);
                 } else {        //era spento
-                    try {
-                        model.setBilanciaIOController(new IOController("192.168.1.151"));
-                    } catch (IOException ignored) {}
+                    model.setBilanciaIOController(new BilanciaIOcontroller("192.168.1.201"));
                 }
             }
         });

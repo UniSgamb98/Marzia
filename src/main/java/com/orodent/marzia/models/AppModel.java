@@ -1,9 +1,14 @@
 package com.orodent.marzia.models;
 
-import com.orodent.marzia.controller.IOController;
+import com.orodent.marzia.controller.IOcontrollers.BilanciaIOcontroller;
+import com.orodent.marzia.controller.IOcontrollers.IOController;
+import com.orodent.marzia.controller.IOcontrollers.MicrometroIOcontroller;
+import com.orodent.marzia.view.ListItem;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 
@@ -11,6 +16,9 @@ public class AppModel {
     public final ObjectProperty<IOController> micrometerIOController;
     public final ObjectProperty<IOController> bilanciaIOController;
     public final SimpleBooleanProperty activeControllerProp;
+    public int micrometroCursor = 0;
+    public int bilanciaCursor = 0;
+    public final ObservableList<ListItem> measurement = FXCollections.observableArrayList();
 
     private boolean activeController = false;
 
@@ -19,11 +27,9 @@ public class AppModel {
         bilanciaIOController = new SimpleObjectProperty<>();
         activeControllerProp = new SimpleBooleanProperty(false);
         try {
-            micrometerIOController.set(new IOController("192.168.1.150"));
+            micrometerIOController.set(new MicrometroIOcontroller("192.168.1.150"));
         } catch (IOException ignored) {}
-        try {
-            bilanciaIOController.set(new IOController("192.168.1.151"));
-        } catch (IOException ignored) {}
+        bilanciaIOController.set(new BilanciaIOcontroller("192.168.1.151"));
     }
 
     public IOController getBilanciaIOController() {
