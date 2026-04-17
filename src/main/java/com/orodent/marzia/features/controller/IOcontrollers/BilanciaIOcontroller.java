@@ -1,4 +1,4 @@
-package com.orodent.marzia.controller.IOcontrollers;
+package com.orodent.marzia.features.controller.IOcontrollers;
 
 import com.ghgande.j2mod.modbus.io.ModbusTCPTransaction;
 import com.ghgande.j2mod.modbus.msg.ReadMultipleRegistersRequest;

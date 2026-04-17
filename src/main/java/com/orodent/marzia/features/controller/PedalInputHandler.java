@@ -1,4 +1,4 @@
-package com.orodent.marzia.controller;
+package com.orodent.marzia.features.controller;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;

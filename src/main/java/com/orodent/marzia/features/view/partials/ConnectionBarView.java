@@ -1,6 +1,6 @@
-package com.orodent.marzia.view;
+package com.orodent.marzia.features.view.partials;
 
-import com.orodent.marzia.models.AppModel;
+import com.orodent.marzia.app.AppModel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

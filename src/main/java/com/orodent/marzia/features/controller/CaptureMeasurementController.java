@@ -1,8 +1,8 @@
-package com.orodent.marzia.controller;
+package com.orodent.marzia.features.controller;
 
-import com.orodent.marzia.controller.IOcontrollers.IOController;
-import com.orodent.marzia.models.AppModel;
-import com.orodent.marzia.view.ListItem;
+import com.orodent.marzia.features.controller.IOcontrollers.IOController;
+import com.orodent.marzia.app.AppModel;
+import com.orodent.marzia.features.view.partials.ListItem;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

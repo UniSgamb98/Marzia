@@ -5,5 +5,5 @@ module com.orodent.marzia {
     requires java.desktop;
     requires j2mod;
 
-    exports com.orodent.marzia.Main;
+    exports com.orodent.marzia.app;
 }

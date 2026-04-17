@@ -1,4 +1,4 @@
-package com.orodent.marzia.controller.IOcontrollers;
+package com.orodent.marzia.features.controller.IOcontrollers;
 
 public abstract class IOController {
 

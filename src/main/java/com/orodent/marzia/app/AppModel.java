@@ -1,9 +1,9 @@
-package com.orodent.marzia.models;
+package com.orodent.marzia.app;
 
-import com.orodent.marzia.controller.IOcontrollers.BilanciaIOcontroller;
-import com.orodent.marzia.controller.IOcontrollers.IOController;
-import com.orodent.marzia.controller.IOcontrollers.MicrometroIOcontroller;
-import com.orodent.marzia.view.ListItem;
+import com.orodent.marzia.features.controller.IOcontrollers.BilanciaIOcontroller;
+import com.orodent.marzia.features.controller.IOcontrollers.IOController;
+import com.orodent.marzia.features.controller.IOcontrollers.MicrometroIOcontroller;
+import com.orodent.marzia.features.view.partials.ListItem;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;

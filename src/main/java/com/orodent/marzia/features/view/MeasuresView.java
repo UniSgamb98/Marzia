@@ -1,9 +1,11 @@
-package com.orodent.marzia.view;
+package com.orodent.marzia.features.view;
 
-import com.orodent.marzia.controller.CaptureMeasurementController;
-import com.orodent.marzia.controller.CopyOnClipBoardController;
-import com.orodent.marzia.controller.ResetController;
-import com.orodent.marzia.models.AppModel;
+import com.orodent.marzia.features.controller.CaptureMeasurementController;
+import com.orodent.marzia.features.controller.CopyOnClipBoardController;
+import com.orodent.marzia.features.controller.ResetController;
+import com.orodent.marzia.features.view.partials.ConnectionBarView;
+import com.orodent.marzia.features.view.partials.ListItem;
+import com.orodent.marzia.app.AppModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -18,9 +20,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 
-public class View extends BorderPane {
+public class MeasuresView extends BorderPane {
 
-    public View(AppModel model) {
+    public MeasuresView(AppModel model) {
         this.getStyleClass().add("custom-view");
 
         // HBox con i ChoiceBox in alto

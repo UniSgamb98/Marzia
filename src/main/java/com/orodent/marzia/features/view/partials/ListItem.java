@@ -1,4 +1,4 @@
-package com.orodent.marzia.view;
+package com.orodent.marzia.features.view.partials;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;

@@ -1,9 +1,8 @@
-package com.orodent.marzia.controller.IOcontrollers;
+package com.orodent.marzia.features.controller.IOcontrollers;
 
-import com.orodent.marzia.controller.KeyenceStreamReader;
+import com.orodent.marzia.features.controller.KeyenceStreamReader;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 
 public class MicrometroIOcontroller extends IOController{

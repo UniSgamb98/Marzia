@@ -1,4 +1,4 @@
-package com.orodent.marzia.controller;
+package com.orodent.marzia.features.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 

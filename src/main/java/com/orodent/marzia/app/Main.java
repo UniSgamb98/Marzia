@@ -1,10 +1,9 @@
-package com.orodent.marzia.Main;
+package com.orodent.marzia.app;
 
-import com.orodent.marzia.controller.CaptureMeasurementController;
-import com.orodent.marzia.controller.ChangeMeasurementController;
-import com.orodent.marzia.controller.PedalInputHandler;
-import com.orodent.marzia.models.AppModel;
-import com.orodent.marzia.view.View;
+import com.orodent.marzia.features.controller.CaptureMeasurementController;
+import com.orodent.marzia.features.controller.ChangeMeasurementController;
+import com.orodent.marzia.features.controller.PedalInputHandler;
+import com.orodent.marzia.features.view.MeasuresView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,8 +24,8 @@ public class Main extends Application {
 
         AppModel model = new AppModel();
 
-        View view = new View(model);
-        Scene scene = new Scene(view, 620, 950);
+        MeasuresView measuresView = new MeasuresView(model);
+        Scene scene = new Scene(measuresView, 620, 950);
 
         // Gestione della pulsante a pedale
         new PedalInputHandler(scene, new CaptureMeasurementController(model), new ChangeMeasurementController(model));
