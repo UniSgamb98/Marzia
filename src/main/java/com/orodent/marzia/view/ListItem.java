@@ -8,10 +8,8 @@ import javafx.scene.layout.HBox;
 
 public class ListItem extends HBox {
     public final SimpleBooleanProperty toBeRemoved;
-    private boolean cannotBeRemoved;
     private String bilanciaValue;
     private String micrometerValue;
-    private final Button removeButton;
     private final Label label;
 
     public static int n = 1;
@@ -26,27 +24,35 @@ public class ListItem extends HBox {
             micrometerValue = text;
         }
         toBeRemoved = new SimpleBooleanProperty(false);
-        cannotBeRemoved = false;
         label = new Label(micrometerValue+ "\t" + bilanciaValue);
         Label nl = new Label(n+".");
         n++;
-        removeButton = new Button("X");
-        this.getChildren().addAll(nl, label, removeButton);
+        Button bilanciaRemoveButton = new Button("X");
+        Button micrometroRemoveButton = new Button("X");
+        this.getChildren().addAll(nl, micrometroRemoveButton, label, bilanciaRemoveButton);
 
         // Stile opzionale
         this.setStyle("-fx-padding: 5;");
         this.setAlignment(Pos.BASELINE_CENTER);
 
         // Rimuove l'elemento quando cliccato
-        removeButton.setOnAction(e -> {
-            if (!cannotBeRemoved)
-                toBeRemoved.set(true);
+        bilanciaRemoveButton.setOnAction(e -> {
+            setBilanciaText("");
+            //if (micrometerValue.isEmpty())
+                //toBeRemoved.set(true);
+        });
+        micrometroRemoveButton.setOnAction(e -> {
+            setMicrometerText("");
+            //if (bilanciaValue.isEmpty())
+                //toBeRemoved.set(true); TODO da sistemare il remove
         });
 
         // CSS
         label.getStyleClass().add("list-item-label");
-        removeButton.getStyleClass().add("list-item-button");
-        removeButton.getStyleClass().remove("button");
+        bilanciaRemoveButton.getStyleClass().add("list-item-button");
+        bilanciaRemoveButton.getStyleClass().remove("button");
+        micrometroRemoveButton.getStyleClass().add("list-item-button");
+        micrometroRemoveButton.getStyleClass().remove("button");
     }
 
     public void setBilanciaText(String text){
@@ -59,23 +65,15 @@ public class ListItem extends HBox {
         label.setText(micrometerValue+ "\t" + bilanciaValue);
     }
 
+    public String getBilanciaValue(){
+        return bilanciaValue;
+    }
+
+    public String getMicrometerValue(){
+        return micrometerValue;
+    }
+
     public String getText() {
         return micrometerValue+ "\t" + bilanciaValue;
-    }
-
-    public void disable(){
-        cannotBeRemoved = true;
-        removeButton.setDisable(true);
-        removeButton.setText("");
-        removeButton.getStyleClass().remove("list-item-button");
-        removeButton.getStyleClass().add("list-item-button-disabled");
-    }
-
-    public void enable(){
-        cannotBeRemoved = false;
-        removeButton.setDisable(false);
-        removeButton.setText("X");
-        removeButton.getStyleClass().remove("list-item-button-disabled");
-        removeButton.getStyleClass().add("list-item-button");
     }
 }

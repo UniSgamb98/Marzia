@@ -23,57 +23,38 @@ public class CaptureMeasurementController implements EventHandler<ActionEvent> {
         String response = ioController.getMeasurement();
 
         if (model.activeControllerProp.getValue()) {  //false == micrometer   adding from bilancia
-            model.bilanciaCursor++;
-            if (ListItem.n <= model.bilanciaCursor){
-                //aggiungo un list item
-                ListItem listItem = new ListItem(response, model.activeControllerProp.getValue());
-                listItem.toBeRemoved.addListener((obs, oldVal, newVal) -> {
-                    model.measurement.remove(listItem);
-                    ListItem.n--;
-                    model.measurement.get(ListItem.n-2).enable();
-                    if (model.bilanciaCursor > model.micrometroCursor)
-                        model.bilanciaCursor--;
-                    else if (model.bilanciaCursor < model.micrometroCursor)
-                        model.micrometroCursor--;
-                    else {
-                        model.micrometroCursor--;
-                        model.bilanciaCursor--;
-                    }
-                });
-                if (ListItem.n > 2)
-                    model.measurement.get(ListItem.n-3).disable();
-                model.measurement.add(listItem);
-            } else{
-                //mi collego a un item esistente
-                ListItem itemToChange = model.measurement.get(model.bilanciaCursor-1);
-                itemToChange.setBilanciaText(response);
+            boolean notFound = true;
+            for (ListItem i : model.measurement){
+                if (i.getBilanciaValue().isEmpty()){
+                    notFound = false;
+                    i.setBilanciaText(response);
+                    break;
+                }
             }
-
-        } else {    //adding from micrometer
-            model.micrometroCursor++;
-            if (ListItem.n <= model.micrometroCursor){
-                //aggiungo un list item
-                ListItem listItem = new ListItem(response, model.activeControllerProp.getValue());
-                listItem.toBeRemoved.addListener((obs, oldVal, newVal) -> {
-                    model.measurement.remove(listItem);
+            if (notFound){
+                ListItem newItem = new ListItem(response, model.activeControllerProp.getValue());
+                newItem.toBeRemoved.addListener((obs, oldVal, newVal) -> {
+                    model.measurement.remove(newItem);
                     ListItem.n--;
-                    model.measurement.get(ListItem.n-2).enable();
-                    if (model.bilanciaCursor > model.micrometroCursor)
-                        model.bilanciaCursor--;
-                    else if (model.bilanciaCursor < model.micrometroCursor)
-                        model.micrometroCursor--;
-                    else {
-                        model.micrometroCursor--;
-                        model.bilanciaCursor--;
-                    }
                 });
-                if (ListItem.n > 2)
-                    model.measurement.get(ListItem.n-3).disable();
-                model.measurement.add(listItem);
-            } else{
-                //mi collego a un item esistente
-                ListItem itemToChange = model.measurement.get(model.micrometroCursor-1);
-                itemToChange.setMicrometerText(response);
+                model.measurement.add(newItem);
+            }
+        } else {    //adding from micrometer
+            boolean notFound = true;
+            for (ListItem i : model.measurement){
+                if (i.getMicrometerValue().isEmpty()){
+                    notFound = false;
+                    i.setMicrometerText(response);
+                    break;
+                }
+            }
+            if (notFound){
+                ListItem newItem = new ListItem(response, model.activeControllerProp.getValue());
+                newItem.toBeRemoved.addListener((obs, oldVal, newVal) -> {
+                    model.measurement.remove(newItem);
+                    ListItem.n--;
+                });
+                model.measurement.add(newItem);
             }
         }
     }

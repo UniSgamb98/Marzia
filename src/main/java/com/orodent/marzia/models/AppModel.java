@@ -27,9 +27,11 @@ public class AppModel {
         bilanciaIOController = new SimpleObjectProperty<>();
         activeControllerProp = new SimpleBooleanProperty(false);
         try {
-            micrometerIOController.set(new MicrometroIOcontroller("192.168.1.150"));
+            micrometerIOController.set(new MicrometroIOcontroller());
         } catch (IOException ignored) {}
-        bilanciaIOController.set(new BilanciaIOcontroller("192.168.1.151"));
+        try {
+            bilanciaIOController.set(new BilanciaIOcontroller("192.168.1.201"));
+        } catch (Exception ignored) {}
     }
 
     public IOController getBilanciaIOController() {

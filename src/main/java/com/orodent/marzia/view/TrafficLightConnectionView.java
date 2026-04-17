@@ -43,7 +43,7 @@ public class TrafficLightConnectionView extends StackPane {
                     model.setMicrometerIOController(null);
                 } else {        //era spento
                     try {
-                        model.setMicrometerIOController(new MicrometroIOcontroller("192.168.1.150"));
+                        model.setMicrometerIOController(new MicrometroIOcontroller());
                     } catch (IOException ignored) {}
                 }
             } else if (IODevice == 2) {
@@ -52,7 +52,9 @@ public class TrafficLightConnectionView extends StackPane {
                     c.close();
                     model.setBilanciaIOController(null);
                 } else {        //era spento
-                    model.setBilanciaIOController(new BilanciaIOcontroller("192.168.1.201"));
+                    try {
+                        model.setBilanciaIOController(new BilanciaIOcontroller("192.168.1.201"));
+                    } catch (Exception ignored) {}
                 }
             }
         });

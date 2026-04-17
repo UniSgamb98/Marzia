@@ -16,7 +16,5 @@ public class ResetController implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         model.measurement.clear();
         ListItem.n = 1;
-        model.bilanciaCursor = 0;
-        model.micrometroCursor = 0;
     }
 }

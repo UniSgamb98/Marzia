@@ -11,12 +11,15 @@ public class MicrometroIOcontroller extends IOController{
     private final KeyenceStreamReader streamReader;
     private final Socket socket;
 
-    public MicrometroIOcontroller(String ip) throws IOException {
+    public MicrometroIOcontroller() throws IOException {
         super();
+        String ip = "192.168.1.150";
         int port = 8600;
 
         //Apertura Socket
-        socket = new Socket(InetAddress.getByName(null), 80);
+        socket = new Socket(ip, port);
+       // socket = new Socket(InetAddress.getByName(null), 80);
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try { close(); } catch (Exception ignored) {}
         }));
