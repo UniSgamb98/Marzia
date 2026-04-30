@@ -1,35 +1,19 @@
 package com.orodent.marzia.features.controller;
 
 import com.orodent.marzia.app.AppModel;
-import com.orodent.marzia.features.view.partials.ListItem;
+import com.orodent.marzia.features.service.ClipboardService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 
 public class CopyOnClipBoardController implements EventHandler<ActionEvent> {
-    private final AppModel model;
+    private final ClipboardService clipboardService;
 
     public CopyOnClipBoardController(AppModel model) {
-        this.model = model;
+        this.clipboardService = new ClipboardService(model);
     }
 
     @Override
     public void handle(ActionEvent event) {
-        Clipboard clipboard = Clipboard.getSystemClipboard();
-        ClipboardContent content = new ClipboardContent();
-
-        StringBuilder sb = new StringBuilder();
-        boolean first = true;
-        for (ListItem i : model.measurement){
-            if (!first) {
-                sb.append("\n");
-            }
-            sb.append(i.getText());
-            first = false;
-        }
-
-        content.putString(sb.toString());
-        clipboard.setContent(content);
+        clipboardService.copyMeasurementsToClipboard();
     }
 }

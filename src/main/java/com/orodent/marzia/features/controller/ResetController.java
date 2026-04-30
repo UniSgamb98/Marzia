@@ -1,20 +1,19 @@
 package com.orodent.marzia.features.controller;
 
 import com.orodent.marzia.app.AppModel;
-import com.orodent.marzia.features.view.partials.ListItem;
+import com.orodent.marzia.features.service.SessionService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class ResetController implements EventHandler<ActionEvent> {
-    private final AppModel model;
+    private final SessionService sessionService;
 
     public ResetController(AppModel model) {
-        this.model = model;
+        this.sessionService = new SessionService(model);
     }
 
     @Override
     public void handle(ActionEvent event) {
-        model.measurement.clear();
-        ListItem.n = 1;
+        sessionService.resetMeasurements();
     }
 }

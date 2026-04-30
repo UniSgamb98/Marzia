@@ -1,8 +1,8 @@
 package com.orodent.marzia.features.view.partials;
 
-import com.orodent.marzia.features.controller.IOcontrollers.BilanciaIOcontroller;
-import com.orodent.marzia.features.controller.IOcontrollers.IOController;
-import com.orodent.marzia.features.controller.IOcontrollers.MicrometroIOcontroller;
+import com.orodent.marzia.features.service.io.BilanciaIOcontroller;
+import com.orodent.marzia.features.service.io.IOController;
+import com.orodent.marzia.features.service.io.MicrometroIOcontroller;
 import com.orodent.marzia.app.AppModel;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
