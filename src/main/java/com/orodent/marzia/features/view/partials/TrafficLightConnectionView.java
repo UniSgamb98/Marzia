@@ -3,7 +3,7 @@ package com.orodent.marzia.features.view.partials;
 import com.orodent.marzia.features.service.io.BilanciaIOcontroller;
 import com.orodent.marzia.features.service.io.IOController;
 import com.orodent.marzia.features.service.io.MicrometroIOcontroller;
-import com.orodent.marzia.app.AppModel;
+import com.orodent.marzia.app.AppContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -13,47 +13,47 @@ import java.io.IOException;
 public class TrafficLightConnectionView extends StackPane {
     private final Circle light;
 
-    public TrafficLightConnectionView(AppModel model, int IODevice) {
+    public TrafficLightConnectionView(AppContext appContext, int IODevice) {
         Circle border = new Circle(6, Color.BLACK);
         light = new Circle(5, Color.RED);
         getChildren().addAll(border, light);
 
         //Aggiunta Listener per cambio colore del semaforo
         if (IODevice == 1) {
-            model.micrometerIOController.addListener((obs, oldValue, newValue) -> {
+            appContext.micrometerIOController.addListener((obs, oldValue, newValue) -> {
                 if (newValue != null)   switchColor(Color.GREEN);
                 else switchColor(Color.RED);
             });
-            if (model.getMicrometerIOController() != null)  switchColor(Color.GREEN);
+            if (appContext.getMicrometerIOController() != null)  switchColor(Color.GREEN);
             else switchColor(Color.RED);
         } else if (IODevice == 2) {
-            model.bilanciaIOController.addListener((obs, oldValue, newValue) -> {
+            appContext.bilanciaIOController.addListener((obs, oldValue, newValue) -> {
                 if (newValue != null)   switchColor(Color.GREEN);
                 else switchColor(Color.RED);
             });
-            if (model.getMicrometerIOController() != null)  switchColor(Color.GREEN);
+            if (appContext.getMicrometerIOController() != null)  switchColor(Color.GREEN);
             else switchColor(Color.RED);
         }
 
         this.setOnMouseClicked(e -> {
             if (IODevice == 1) {
-                IOController c = model.getMicrometerIOController();
+                IOController c = appContext.getMicrometerIOController();
                 if (c != null){     //era acceso
                     c.close();
-                    model.setMicrometerIOController(null);
+                    appContext.setMicrometerIOController(null);
                 } else {        //era spento
                     try {
-                        model.setMicrometerIOController(new MicrometroIOcontroller());
+                        appContext.setMicrometerIOController(new MicrometroIOcontroller());
                     } catch (IOException ignored) {}
                 }
             } else if (IODevice == 2) {
-                IOController c = model.getBilanciaIOController();
+                IOController c = appContext.getBilanciaIOController();
                 if (c != null){     //era acceso
                     c.close();
-                    model.setBilanciaIOController(null);
+                    appContext.setBilanciaIOController(null);
                 } else {        //era spento
                     try {
-                        model.setBilanciaIOController(new BilanciaIOcontroller("192.168.1.201"));
+                        appContext.setBilanciaIOController(new BilanciaIOcontroller("192.168.1.201"));
                     } catch (Exception ignored) {}
                 }
             }

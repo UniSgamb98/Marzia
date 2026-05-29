@@ -5,7 +5,7 @@ import com.orodent.marzia.features.controller.CopyOnClipBoardController;
 import com.orodent.marzia.features.controller.ResetController;
 import com.orodent.marzia.features.view.partials.ConnectionBarView;
 import com.orodent.marzia.features.view.partials.ListItem;
-import com.orodent.marzia.app.AppModel;
+import com.orodent.marzia.app.AppContext;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class MeasuresView extends BorderPane {
 
-    public MeasuresView(AppModel model) {
+    public MeasuresView(AppContext appContext) {
         this.getStyleClass().add("custom-view");
 
         // HBox con i ChoiceBox in alto
@@ -31,13 +31,13 @@ public class MeasuresView extends BorderPane {
         topBox.setAlignment(Pos.CENTER);
 
         Button reset = new Button("Reset");
-        reset.setOnAction(new ResetController(model));
-        HBox top = new HBox(reset, new ConnectionBarView(model));
+        reset.setOnAction(new ResetController(appContext));
+        HBox top = new HBox(reset, new ConnectionBarView(appContext));
         setTop(top);
 
         // ListView a centro
-        ListView<ListItem> listView = new ListView<>(model.measurement);
-        model.measurement.addListener((ListChangeListener<ListItem>) change -> {
+        ListView<ListItem> listView = new ListView<>(appContext.measurement);
+        appContext.measurement.addListener((ListChangeListener<ListItem>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
                     Platform.runLater(() -> {
@@ -53,13 +53,13 @@ public class MeasuresView extends BorderPane {
 
         // Bottone sinistra
         Button acquisisciButton = new Button("Acquisisci da\nmicrometro");
-        acquisisciButton.setOnAction(new CaptureMeasurementController(model));
+        acquisisciButton.setOnAction(new CaptureMeasurementController(appContext));
         BorderPane.setAlignment(acquisisciButton, Pos.CENTER);
         ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/images/eyeIcon.png")).toExternalForm()));
         imageView.setFitWidth(120);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
-        model.activeControllerProp.addListener((obs, oldValue, newValue) ->{
+        appContext.activeControllerProp.addListener((obs, oldValue, newValue) ->{
             if(newValue){
                 acquisisciButton.setText("Acquisisci da\nbilancia");
                 imageView.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/scaleIcon.png")).toExternalForm()));
@@ -78,7 +78,7 @@ public class MeasuresView extends BorderPane {
         Button copyButton = new Button("Copia su appunti");
         copyButton.getStyleClass().add("bottom-button");
         copyButton.setMaxWidth(Double.MAX_VALUE);
-        copyButton.setOnAction(new CopyOnClipBoardController(model));
+        copyButton.setOnAction(new CopyOnClipBoardController(appContext));
 
         VBox bottomBox = new VBox(copyButton);
         bottomBox.setPadding(new Insets(15));

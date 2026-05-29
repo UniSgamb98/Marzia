@@ -1,15 +1,15 @@
 package com.orodent.marzia.features.service;
 
-import com.orodent.marzia.app.AppModel;
+import com.orodent.marzia.app.AppContext;
 
 public class DeviceSelectionService {
-    private final AppModel model;
+    private final AppContext appContext;
 
-    public DeviceSelectionService(AppModel model) {
-        this.model = model;
+    public DeviceSelectionService(AppContext appContext) {
+        this.appContext = appContext;
     }
 
     public void swapActiveDevice() {
-        model.swapActiveController();
+        appContext.swapActiveController();
     }
 }

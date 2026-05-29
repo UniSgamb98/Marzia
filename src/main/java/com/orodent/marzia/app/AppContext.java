@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 
 import java.io.IOException;
 
-public class AppModel {
+public class AppContext {
     public final ObjectProperty<IOController> micrometerIOController;
     public final ObjectProperty<IOController> bilanciaIOController;
     public final SimpleBooleanProperty activeControllerProp;
@@ -22,7 +22,7 @@ public class AppModel {
 
     private boolean activeController = false;
 
-    public AppModel(){
+    public AppContext(){
         micrometerIOController = new SimpleObjectProperty<>();
         bilanciaIOController = new SimpleObjectProperty<>();
         activeControllerProp = new SimpleBooleanProperty(false);

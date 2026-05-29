@@ -1,18 +1,18 @@
 package com.orodent.marzia.features.service;
 
-import com.orodent.marzia.app.AppModel;
+import com.orodent.marzia.app.AppContext;
 import com.orodent.marzia.features.service.io.IOController;
 import com.orodent.marzia.features.view.partials.ListItem;
 
 public class MeasurementCaptureService {
-    private final AppModel model;
+    private final AppContext appContext;
 
-    public MeasurementCaptureService(AppModel model) {
-        this.model = model;
+    public MeasurementCaptureService(AppContext appContext) {
+        this.appContext = appContext;
     }
 
     public void captureFromActiveDevice() {
-        IOController ioController = model.getActiveController();
+        IOController ioController = appContext.getActiveController();
         if (ioController == null) {
             throw new IllegalStateException("Nessun dispositivo attivo disponibile");
         }
@@ -22,7 +22,7 @@ public class MeasurementCaptureService {
             response = "";
         }
 
-        if (model.activeControllerProp.getValue()) {
+        if (appContext.activeControllerProp.getValue()) {
             addBilanciaMeasurement(response);
         } else {
             addMicrometerMeasurement(response);
@@ -30,7 +30,7 @@ public class MeasurementCaptureService {
     }
 
     private void addBilanciaMeasurement(String response) {
-        for (ListItem item : model.measurement) {
+        for (ListItem item : appContext.measurement) {
             if (item.getBilanciaValue().isEmpty()) {
                 item.setBilanciaText(response);
                 return;
@@ -41,7 +41,7 @@ public class MeasurementCaptureService {
     }
 
     private void addMicrometerMeasurement(String response) {
-        for (ListItem item : model.measurement) {
+        for (ListItem item : appContext.measurement) {
             if (item.getMicrometerValue().isEmpty()) {
                 item.setMicrometerText(response);
                 return;
@@ -54,9 +54,9 @@ public class MeasurementCaptureService {
     private void addNewMeasurement(String response, boolean isBilancia) {
         ListItem newItem = new ListItem(response, isBilancia);
         newItem.toBeRemoved.addListener((obs, oldVal, newVal) -> {
-            model.measurement.remove(newItem);
+            appContext.measurement.remove(newItem);
             ListItem.n--;
         });
-        model.measurement.add(newItem);
+        appContext.measurement.add(newItem);
     }
 }

@@ -22,13 +22,13 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
 
-        AppModel model = new AppModel();
+        AppContext appContext = new AppContext();
 
-        MeasuresView measuresView = new MeasuresView(model);
+        MeasuresView measuresView = new MeasuresView(appContext);
         Scene scene = new Scene(measuresView, 620, 950);
 
         // Gestione della pulsante a pedale
-        new PedalInputHandler(scene, new CaptureMeasurementController(model), new ChangeMeasurementController(model));
+        new PedalInputHandler(scene, new CaptureMeasurementController(appContext), new ChangeMeasurementController(appContext));
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/style.css")).toExternalForm());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/listItem.css")).toExternalForm());

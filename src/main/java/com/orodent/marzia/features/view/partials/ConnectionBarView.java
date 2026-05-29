@@ -1,6 +1,6 @@
 package com.orodent.marzia.features.view.partials;
 
-import com.orodent.marzia.app.AppModel;
+import com.orodent.marzia.app.AppContext;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -8,13 +8,13 @@ import javafx.scene.layout.HBox;
 
 public class ConnectionBarView extends HBox {
 
-    public ConnectionBarView(AppModel model) {
+    public ConnectionBarView(AppContext appContext) {
         //Label
         Label label1 = new Label("Micrometro:");
         Label label2 = new Label("Bilancia:");
 
-        TrafficLightConnectionView trafficLight1 = new TrafficLightConnectionView(model, 1);
-        TrafficLightConnectionView trafficLight2 = new TrafficLightConnectionView(model, 2);
+        TrafficLightConnectionView trafficLight1 = new TrafficLightConnectionView(appContext, 1);
+        TrafficLightConnectionView trafficLight2 = new TrafficLightConnectionView(appContext, 2);
 
         //LAYOUT
         this.getChildren().addAll(label1, trafficLight1, label2, trafficLight2);
