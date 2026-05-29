@@ -3,7 +3,6 @@ package com.orodent.marzia.app;
 import com.orodent.marzia.features.controller.MeasuresController;
 import com.orodent.marzia.features.controller.PedalInputHandler;
 import com.orodent.marzia.features.view.MeasuresView;
-import com.orodent.marzia.features.view.partials.ConnectionBarView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,8 +22,7 @@ public class Main extends Application {
         }
 
         AppContext appContext = new AppContext();
-        ConnectionBarView connectionBarView = new ConnectionBarView(appContext);
-        MeasuresView measuresView = new MeasuresView(connectionBarView);
+        MeasuresView measuresView = new MeasuresView();
         MeasuresController measuresController = new MeasuresController(measuresView, appContext);
         measuresController.initialize();
 

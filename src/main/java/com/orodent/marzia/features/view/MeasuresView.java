@@ -21,11 +21,13 @@ public class MeasuresView extends BorderPane {
     private final Button copyButton;
     private final ListView<ListItem> measurementsListView;
     private final ImageView deviceImageView;
+    private final ConnectionBarView connectionBarView;
 
-    public MeasuresView(ConnectionBarView connectionBarView) {
+    public MeasuresView() {
         this.getStyleClass().add("custom-view");
 
         resetButton = new Button("Reset");
+        connectionBarView = new ConnectionBarView();
         HBox top = new HBox(resetButton, connectionBarView);
         setTop(top);
 
@@ -56,6 +58,10 @@ public class MeasuresView extends BorderPane {
         bottomBox.setPadding(new Insets(15));
         bottomBox.setAlignment(Pos.CENTER);
         setBottom(bottomBox);
+    }
+
+    public ConnectionBarView getConnectionBarView() {
+        return connectionBarView;
     }
 
     public Button getResetButton() {

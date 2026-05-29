@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 
 public class MeasuresController {
     private final MeasuresView view;
+    private final ConnectionBarController connectionBarController;
     private final AppContext appContext;
     private final MeasurementCaptureService measurementCaptureService;
     private final DeviceSelectionService deviceSelectionService;
@@ -21,6 +22,7 @@ public class MeasuresController {
 
     public MeasuresController(MeasuresView view, AppContext appContext) {
         this.view = view;
+        this.connectionBarController = new ConnectionBarController(view.getConnectionBarView(), appContext);
         this.appContext = appContext;
         this.measurementCaptureService = new MeasurementCaptureService(appContext);
         this.deviceSelectionService = new DeviceSelectionService(appContext);
@@ -29,6 +31,7 @@ public class MeasuresController {
     }
 
     public void initialize() {
+        connectionBarController.initialize();
         view.setMeasurements(appContext.measurement);
         view.getResetButton().setOnAction(this::resetMeasurements);
         view.getCaptureButton().setOnAction(this::captureMeasurement);
