@@ -1,13 +1,8 @@
 package com.orodent.marzia.features.view;
 
-import com.orodent.marzia.features.controller.CaptureMeasurementController;
-import com.orodent.marzia.features.controller.CopyOnClipBoardController;
-import com.orodent.marzia.features.controller.ResetController;
 import com.orodent.marzia.features.view.partials.ConnectionBarView;
 import com.orodent.marzia.features.view.partials.ListItem;
-import com.orodent.marzia.app.AppContext;
-import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -21,68 +16,80 @@ import javafx.scene.layout.VBox;
 import java.util.Objects;
 
 public class MeasuresView extends BorderPane {
+    private final Button resetButton;
+    private final Button captureButton;
+    private final Button copyButton;
+    private final ListView<ListItem> measurementsListView;
+    private final ImageView deviceImageView;
 
-    public MeasuresView(AppContext appContext) {
+    public MeasuresView(ConnectionBarView connectionBarView) {
         this.getStyleClass().add("custom-view");
 
-        // HBox con i ChoiceBox in alto
-        HBox topBox = new HBox(10);
-        topBox.setPadding(new Insets(15));
-        topBox.setAlignment(Pos.CENTER);
-
-        Button reset = new Button("Reset");
-        reset.setOnAction(new ResetController(appContext));
-        HBox top = new HBox(reset, new ConnectionBarView(appContext));
+        resetButton = new Button("Reset");
+        HBox top = new HBox(resetButton, connectionBarView);
         setTop(top);
 
-        // ListView a centro
-        ListView<ListItem> listView = new ListView<>(appContext.measurement);
-        appContext.measurement.addListener((ListChangeListener<ListItem>) change -> {
-            while (change.next()) {
-                if (change.wasAdded()) {
-                    Platform.runLater(() -> {
-                        listView.layout(); // forza il layout aggiornato
-                        listView.scrollTo(listView.getItems().size() - 1);
-                    });
-                }
-            }
-        });
-        listView.setPrefWidth(350);
-        listView.setMaxWidth(450);
-        setCenter(listView);
+        measurementsListView = new ListView<>();
+        measurementsListView.setPrefWidth(350);
+        measurementsListView.setMaxWidth(450);
+        setCenter(measurementsListView);
 
-        // Bottone sinistra
-        Button acquisisciButton = new Button("Acquisisci da\nmicrometro");
-        acquisisciButton.setOnAction(new CaptureMeasurementController(appContext));
-        BorderPane.setAlignment(acquisisciButton, Pos.CENTER);
-        ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/images/eyeIcon.png")).toExternalForm()));
-        imageView.setFitWidth(120);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        appContext.activeControllerProp.addListener((obs, oldValue, newValue) ->{
-            if(newValue){
-                acquisisciButton.setText("Acquisisci da\nbilancia");
-                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/scaleIcon.png")).toExternalForm()));
-            } else {
-                acquisisciButton.setText("Acquisisci da\nmicrometro");
-                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/eyeIcon.png")).toExternalForm()));
-            }
-        });
-        VBox centerBox = new VBox(acquisisciButton, imageView);
+        captureButton = new Button();
+        BorderPane.setAlignment(captureButton, Pos.CENTER);
+
+        deviceImageView = new ImageView();
+        deviceImageView.setFitWidth(120);
+        deviceImageView.setPreserveRatio(true);
+        deviceImageView.setSmooth(true);
+        showMicrometerMode();
+
+        VBox centerBox = new VBox(captureButton, deviceImageView);
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPadding(new Insets(15));
         setLeft(centerBox);
 
-
-        // Bottone inferiore
-        Button copyButton = new Button("Copia su appunti");
+        copyButton = new Button("Copia su appunti");
         copyButton.getStyleClass().add("bottom-button");
         copyButton.setMaxWidth(Double.MAX_VALUE);
-        copyButton.setOnAction(new CopyOnClipBoardController(appContext));
 
         VBox bottomBox = new VBox(copyButton);
         bottomBox.setPadding(new Insets(15));
         bottomBox.setAlignment(Pos.CENTER);
         setBottom(bottomBox);
+    }
+
+    public Button getResetButton() {
+        return resetButton;
+    }
+
+    public Button getCaptureButton() {
+        return captureButton;
+    }
+
+    public Button getCopyButton() {
+        return copyButton;
+    }
+
+    public void setMeasurements(ObservableList<ListItem> measurements) {
+        measurementsListView.setItems(measurements);
+    }
+
+    public void scrollToLastMeasurement() {
+        measurementsListView.layout();
+        measurementsListView.scrollTo(measurementsListView.getItems().size() - 1);
+    }
+
+    public void showMicrometerMode() {
+        captureButton.setText("Acquisisci da\nmicrometro");
+        deviceImageView.setImage(loadImage("/images/eyeIcon.png"));
+    }
+
+    public void showBilanciaMode() {
+        captureButton.setText("Acquisisci da\nbilancia");
+        deviceImageView.setImage(loadImage("/images/scaleIcon.png"));
+    }
+
+    private Image loadImage(String path) {
+        return new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
     }
 }
