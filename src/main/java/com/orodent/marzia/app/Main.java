@@ -1,7 +1,6 @@
 package com.orodent.marzia.app;
 
-import com.orodent.marzia.features.controller.CaptureMeasurementController;
-import com.orodent.marzia.features.controller.ChangeMeasurementController;
+import com.orodent.marzia.features.controller.MeasuresController;
 import com.orodent.marzia.features.controller.PedalInputHandler;
 import com.orodent.marzia.features.view.MeasuresView;
 import javafx.application.Application;
@@ -10,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Objects;
 
 public class Main extends Application {
     @Override
@@ -22,13 +21,15 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
 
-        AppModel model = new AppModel();
+        AppContext appContext = new AppContext();
+        MeasuresView measuresView = new MeasuresView();
+        MeasuresController measuresController = new MeasuresController(measuresView, appContext);
+        measuresController.initialize();
 
-        MeasuresView measuresView = new MeasuresView(model);
         Scene scene = new Scene(measuresView, 620, 950);
 
         // Gestione della pulsante a pedale
-        new PedalInputHandler(scene, new CaptureMeasurementController(model), new ChangeMeasurementController(model));
+        new PedalInputHandler(scene, measuresController::captureMeasurement, measuresController::swapActiveDevice);
 
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/style.css")).toExternalForm());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/listItem.css")).toExternalForm());

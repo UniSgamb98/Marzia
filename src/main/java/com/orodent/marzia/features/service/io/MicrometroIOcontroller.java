@@ -1,6 +1,6 @@
-package com.orodent.marzia.features.controller.IOcontrollers;
+package com.orodent.marzia.features.service.io;
 
-import com.orodent.marzia.features.controller.KeyenceStreamReader;
+import com.orodent.marzia.features.service.io.KeyenceStreamReader;
 
 import java.io.*;
 import java.net.Socket;
